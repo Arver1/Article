@@ -1,13 +1,15 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
+import Comment from './Comment'
 
 export default class Article extends Component {
+
     constructor(props) {
         super(props);
-
         this.state = {
             isOpen: false
         }
     }
+
     render() {
         const {article} = this.props;
         const {isOpen} = this.state;
@@ -17,16 +19,24 @@ export default class Article extends Component {
             <div>
                 <h3>{article.title}</h3>
                 <button onClick={this.toggleOpen}>{btn}</button>
-                <section>{body}</section>
+                {this.getBody()}
             </div>
         )
     }
+
     toggleOpen =() => {
         this.setState({
             isOpen: !this.state.isOpen
         })
     }
+
+    getBody() {
+        if(!this.state.isOpen) return null;
+        const {article} = this.props;
+        return <section>{article.text}<Comment article={article}/></section>
+    }
 }
+
 /*export default function Article(props) {
     const {article} = props;
     return (
