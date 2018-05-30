@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 import CommentList from './CommentList'
 import PropTypes from 'prop-types'
+import toggleOpen from '../decorators/toggleOpen'
 
-export default class Article extends Component {
+class Article extends Component {
 
     static propTypes = {
         article: PropTypes.shape({
@@ -12,36 +13,21 @@ export default class Article extends Component {
         }).isRequired
     }
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            isOpen: false
-        }
-    }
-
     render() {
-        const {article} = this.props;
-        const {isOpen} = this.state;
+        const {article, isOpen, toggleOpen} = this.props;
         const body = isOpen ? <section>{article.text}</section> : null;
-        const btn = isOpen ? "Close" : "Open";
         return (
             <div>
                 <h3>{article.title}</h3>
-                <button onClick={this.toggleOpen}>{btn}</button>
+                <button onClick={toggleOpen}>{isOpen ? "Close" : "Open"}</button>
                 {this.getBody()}
             </div>
         )
     }
 
-    toggleOpen =() => {
-        this.setState({
-            isOpen: !this.state.isOpen
-        })
-    }
-
     getBody() {
-        if(!this.state.isOpen) return null;
-        const {article} = this.props;
+        const {article, isOpen} = this.props;
+        if(!isOpen) return null;
         return (
             <section>
                 {article.text}
@@ -51,13 +37,4 @@ export default class Article extends Component {
     }
 }
 
-/*export default function Article(props) {
-    const {article} = props;
-    return (
-        <div>
-            <h3>{article.title}</h3>
-            <section>{article.text}</section>
-        </div>
-    )
-}
-*/
+export default toggleOpen(Article);
