@@ -8,6 +8,11 @@ class CommentList extends Component {
         comments: []
     }
 
+    static PropTypes = {
+        comments: PropTypes.array,
+        isOpen: PropTypes.bool
+    }
+
     render() {
         const {isOpen,toggleOpen} = this.props;
         const btn = isOpen ? "Hide comments" : "Show comments";
