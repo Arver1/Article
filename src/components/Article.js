@@ -1,9 +1,9 @@
-import React, {Component} from 'react'
+import React, {Component, PureComponent} from 'react'
 import CommentList from './CommentList'
 import PropTypes from 'prop-types'
 import toggleOpen from '../decorators/toggleOpen'
 
-export default class Article extends Component {
+export default class Article extends PureComponent {
 
     static propTypes = {
         article: PropTypes.shape({
@@ -14,6 +14,10 @@ export default class Article extends Component {
         isOpen: PropTypes.bool,
         toggleOpen: PropTypes.func
     }
+
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     return nextProps.isOpen !== this.props.isOpen
+    // }
 
     render() {
         const {article, isOpen, toggleOpen} = this.props;
