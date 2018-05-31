@@ -3,7 +3,7 @@ import CommentList from './CommentList'
 import PropTypes from 'prop-types'
 import toggleOpen from '../decorators/toggleOpen'
 
-class Article extends Component {
+export default class Article extends Component {
 
     static propTypes = {
         article: PropTypes.shape({
@@ -37,4 +37,4 @@ class Article extends Component {
     }
 }
 
-export default toggleOpen(Article);
+

@@ -1,22 +1,27 @@
 {
-  "name": "react_js",
+  "name": "React",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "dependencies": {
+    "prop-types": "^15.6.1"
+  },
+  "devDependencies": {},
   "scripts": {
     "start": "webpack-dev-server --hot --inline",
     "build": "webpack"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/romabelka/js_ru_08_06_17"
+    "url": "git+https://github.com/Arver1/Article.git"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/romabelka/js_ru_08_06_17"
+    "url": "https://github.com/Arver1/Article/issues"
   },
-  "homepage": "https://github.com/romabelka/js_ru_08_06_17",
+  "homepage": "https://github.com/Arver1/Article#readme",
   "devDependencies": {
     "babel-core": "^6.13.2",
     "babel-loader": "^6.2.4",
