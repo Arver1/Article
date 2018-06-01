@@ -4,9 +4,23 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "prop-types": "^15.6.1"
+    "prop-types": "^15.6.1",
+    "react": "^15.5.0",
+    "react-dom": "^15.5.0",
+    "react-select": "^1.2.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-core": "^6.13.2",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.13.2",
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-react-hmre": "^1.1.1",
+    "babel-preset-stage-0": "^6.5.0",
+    "css-loader": "^0.28.11",
+    "style-loader": "^0.21.0",
+    "webpack": "^2.0.0",
+    "webpack-dev-server": "^2.0.0"
+  },
   "scripts": {
     "start": "webpack-dev-server --hot --inline",
     "build": "webpack"
@@ -21,20 +35,5 @@
   "bugs": {
     "url": "https://github.com/Arver1/Article/issues"
   },
-  "homepage": "https://github.com/Arver1/Article#readme",
-  "devDependencies": {
-    "babel-core": "^6.13.2",
-    "babel-loader": "^6.2.4",
-    "babel-preset-es2015": "^6.13.2",
-    "babel-preset-react": "^6.11.1",
-    "babel-preset-react-hmre": "^1.1.1",
-    "babel-preset-stage-0": "^6.5.0",
-    "webpack": "^2.0.0",
-    "webpack-dev-server": "^2.0.0"
-  },
-  "dependencies": {
-    "prop-types": "^15.6.1",
-    "react": "^15.5.0",
-    "react-dom": "^15.5.0"
-  }
+  "homepage": "https://github.com/Arver1/Article#readme"
 }
