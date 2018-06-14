@@ -27,7 +27,7 @@ export default class Article extends PureComponent {
         return (
             <div>
                 <h3>{article.title}</h3>
-                <button onClick={toggleOpen}>{isOpen ? "Close" : "Open"}</button>
+                <button onClick={toggleOpen} style={{marginBottom: '10px'}}>{isOpen ? "Close" : "Open"}</button>
                 <CSSTransitionGroup
                     transitionName = "article"
                     transitionEnterTimeout = {300}
