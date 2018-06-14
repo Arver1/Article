@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import ArticleList from './ArticleList'
 import UserForm from './UserForm'
 import Select from 'react-select'
 import 'react-select/dist/react-select.css'
-
+import DatePicker from './DatePicker'
 
 export default class App extends Component {
     static propTypes = {
@@ -12,7 +11,8 @@ export default class App extends Component {
     };
 
     state = {
-        selection: null
+        selection: null,
+        selectedDay: undefined
     }
 
     render() {
@@ -22,6 +22,7 @@ export default class App extends Component {
         }))
         return (
             <div>
+                <DatePicker/>
                 <UserForm/>
                 <Select options = {options} value={this.state.selection} onChange={this.changeSelection} multi/>
                 <ArticleList articles = {this.props.articles} />
