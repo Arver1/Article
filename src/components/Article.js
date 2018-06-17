@@ -28,6 +28,7 @@ export default class Article extends PureComponent {
             <div>
                 <h3>{article.title}</h3>
                 <button onClick={toggleOpen} style={{marginBottom: '10px'}}>{isOpen ? "Close" : "Open"}</button>
+                <button onClick={this.handleDelete}>delete me</button>
                 <CSSTransitionGroup
                     transitionName = "article"
                     transitionEnterTimeout = {300}
@@ -37,6 +38,10 @@ export default class Article extends PureComponent {
                 </CSSTransitionGroup>
             </div>
         )
+    }
+
+    handleDelete = () => {
+        console.log('___', 'deleting article')
     }
 
     getBody() {

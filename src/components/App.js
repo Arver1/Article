@@ -1,34 +1,30 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import ArticleList from './ArticleList'
+import ArticlesChart from './ArticlesChart'
 import UserForm from './UserForm'
-import Select from 'react-select'
+import Filters from './Filters'
+import Counter from './Counter'
 import 'react-select/dist/react-select.css'
-import DatePicker from './DatePicker'
 
-export default class App extends Component {
+class App extends Component {
     static propTypes = {
 
     };
 
-    state = {
-        selection: null,
-        selectedDay: undefined
-    }
-
     render() {
-        const options = this.props.articles.map(article => ({
-            label: article.title,
-            value: article.id
-        }))
+        const {articles} = this.props
+
         return (
             <div>
-                <DatePicker/>
-                <UserForm/>
-                <Select options = {options} value={this.state.selection} onChange={this.changeSelection} multi/>
-                <ArticleList articles = {this.props.articles} />
+                <Counter />
+                <UserForm />
+                <Filters articles = {articles} />
+                <ArticleList articles = {articles} defaultOpenId = {articles[0].id}/>
+                <ArticlesChart articles = {articles} />
             </div>
         )
     }
-
-    changeSelection = selection => this.setState({ selection })
 }
+
+export default App
