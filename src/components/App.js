@@ -13,15 +13,12 @@ class App extends Component {
     };
 
     render() {
-        const {articles} = this.props
-
         return (
             <div>
                 <Counter />
                 <UserForm />
-                <Filters articles = {articles} />
-                <ArticleList articles = {articles} defaultOpenId = {articles[0].id}/>
-                <ArticlesChart articles = {articles} />
+                <Filters articles = {[]} />
+                <ArticleList />
             </div>
         )
     }
