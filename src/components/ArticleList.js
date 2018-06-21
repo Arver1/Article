@@ -20,9 +20,19 @@ class ArticleList extends Component {
         return articles.filter(({id}) => ~articlesId.indexOf(id))
     }
 
+    filterDateRange(articles, dateRange) {
+        if(!dateRange.from && !dateRange.to) return articles
+        return articles.filter(article => {
+            const articleDate = new Date(article.date);
+            if(dateRange.to) return articleDate >= dateRange.from && articleDate <= dateRange.to
+            return articleDate >= dateRange.from
+        })
+    }
     render() {
-        const {openItemId, toggleOpenItem, selected } = this.props
-        let articles = this.filterSelect(this.props.articles,selected);
+        const {openItemId, toggleOpenItem, selected, dateRange} = this.props
+        const articles = this.filterDateRange(
+            this.filterSelect(this.props.articles,selected),
+            dateRange)
         const articleElements = articles.map(article => <li key={article.id}>
             <Article
                 article = {article}
@@ -41,5 +51,6 @@ class ArticleList extends Component {
 
 export default connect(state => ({
     articles: state.articles,
-    selected: state.select
+    selected: state.select,
+    dateRange: state.dateRange
 }))(accordion(ArticleList))
