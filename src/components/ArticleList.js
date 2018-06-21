@@ -11,8 +11,18 @@ class ArticleList extends Component {
         openItemId: PropTypes.string,
         toggleOpenItem: PropTypes.func.isRequired
     }
+
+    filterSelect(articles, selected){
+        if(!selected.length) return articles
+        const articlesId = []
+        for(let it of selected)
+            articlesId.push(it.value)
+        return articles.filter(({id}) => ~articlesId.indexOf(id))
+    }
+
     render() {
-        const { articles, openItemId, toggleOpenItem } = this.props
+        const {openItemId, toggleOpenItem, selected } = this.props
+        let articles = this.filterSelect(this.props.articles,selected);
         const articleElements = articles.map(article => <li key={article.id}>
             <Article
                 article = {article}
@@ -30,5 +40,6 @@ class ArticleList extends Component {
 }
 
 export default connect(state => ({
-    articles: state.articles
+    articles: state.articles,
+    selected: state.select
 }))(accordion(ArticleList))

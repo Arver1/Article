@@ -23,7 +23,6 @@ class SelectFilter extends Component {
             value: article.id
         }))
 
-        console.log(selected)
         return <Select
             options={options}
             value={selected}
