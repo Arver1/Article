@@ -3,6 +3,8 @@ import {createSelector} from 'reselect'
 const articlesGetter = state => state.articles
 const selectGetter = state => state.selected
 const dateRangeGetter = state => state.dateRange
+const commentsGetter = state => state.comments
+const idGetter = (state, props) => props.id
 
 export const filtratedArticlesSelector = createSelector(articlesGetter, selectGetter, dateRangeGetter, (articles, selected, dateRange) => {
     function filterSelect(articles, selected){
@@ -23,4 +25,9 @@ export const filtratedArticlesSelector = createSelector(articlesGetter, selectGe
     }
 
     return filterDateRange(filterSelect(articles,selected), dateRange)
+})
+
+export const commentSelectorFactory = () => createSelector(commentsGetter, idGetter, (comments, id) => {
+    console.log('____', 'getting comment'+id)
+    return comments.find(comment => comment.id === id)
 })
