@@ -1,27 +1,11 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import ArticleList from './ArticleList'
-import ArticlesChart from './ArticlesChart'
-import UserForm from './UserForm'
-import Filters from './Filters'
-import Counter from './Counter'
-import 'react-select/dist/react-select.css'
+import React from 'react';
+import { hot } from 'react-hot-loader';
+import ArticleList from './ArticleList';
 
-class App extends Component {
-    static propTypes = {
-
-    };
-
-    render() {
-        return (
-            <div>
-                <Counter />
-                <UserForm />
-                <Filters />
-                <ArticleList />
-            </div>
-        )
-    }
+function App({ articles }) {
+    return (
+      <ArticleList articles = { articles }/>
+    )
 }
 
-export default App
+export default hot(module)(App);

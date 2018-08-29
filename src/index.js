@@ -1,5 +1,7 @@
-import React from 'react'
-import {render} from 'react-dom'
-import Root from './components/Root'
+import React from 'react';
+import { render } from 'react-dom';
+import App from './components/App';
+import { articles } from './fixtures';
 
-render(<Root />, document.getElementById('container'))
+render(<App articles = { articles }/>, document.getElementById('container'));
+

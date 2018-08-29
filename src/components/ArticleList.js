@@ -1,37 +1,29 @@
-import React, {Component} from 'react'
-import PropTypes from 'prop-types'
-import Article from './Article'
-import accordion from '../decorators/accordion'
-import {connect} from 'react-redux'
-import {filtratedArticlesSelector as filtrateArticles} from "../selectors";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Article from './Article';
 
-class ArticleList extends Component {
-    static propTypes = {
-        articles: PropTypes.array.isRequired,
-        //from accordion
-        openItemId: PropTypes.string,
-        toggleOpenItem: PropTypes.func.isRequired
-    }
+function ArticleList(props) {
+  const { articles } = props;
+  const getBody = () => {
+    return articles.map((article) => {
+      return (
+        <li key = { article.id }>
+          <button>Open</button>
+          <Article article = { article }/>
+        </li>
+      )
+    })
+  };
 
-    render() {
-        console.log('update ArticleList')
-        const {openItemId, toggleOpenItem, articles} = this.props
-        const articleElements = articles.map(article => <li key={article.id}>
-            <Article
-                article = {article}
-                isOpen = {article.id === openItemId}
-                toggleOpen = {toggleOpenItem(article.id)}
-            />
-        </li>)
-
-        return (
-            <ul>
-                {articleElements}
-            </ul>
-        )
-    }
+  return (
+    <ul>
+      { getBody() }
+    </ul>
+  )
 }
 
-export default connect (state => ({
-    articles: filtrateArticles(state)
-}))(accordion(ArticleList))
+ArticleList.propTypes = {
+  articles: PropTypes.array
+};
+
+export default ArticleList;
