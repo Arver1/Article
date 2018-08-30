@@ -8,6 +8,14 @@ const PATHS = {
   build: path.join(__dirname, 'build'),
 };
 
+const styleLoader = {
+  loader: 'style-loader',
+  options: {
+    sourceMap: true
+  }
+};
+
+
 const conf = {
   context: PATHS.source,
   entry: './index.js',
@@ -28,15 +36,6 @@ const conf = {
           cacheDirectory: true,
           plugins: ['react-hot-loader/babel'],
         },
-      },
-      {
-        test: /\.(sa|sc|c)ss$/,
-        use: [
-          ~process.argv.indexOf('development') ? 'style-loader' : MiniCssExtractPlugin.loader,
-          'css-loader',
-          'postcss-loader',
-          'sass-loader',
-        ],
       }
     ]
   },
@@ -49,6 +48,36 @@ const conf = {
 };
 
 module.exports = (env, argv) => {
-  conf.devtool = argv.mode === 'development' ? 'source-map' : false; // source-map was choosen because css-loader source-map don't work with eval
+  if(argv.mode === 'development') {
+    conf.devtool = 'source-map';
+    conf.module.rules.push({
+      test: /\.(sa|sc|c)ss$/,
+      use: [
+        'style-loader',
+        {
+          loader: "css-loader", options: {
+            sourceMap: true
+          }
+        },
+        'postcss-loader',
+        {
+          loader: "sass-loader", options: {
+            sourceMap: true
+          }
+        }
+      ],
+    });
+    return conf;
+  }
+  conf.devtool = false;
+  conf.module.rules.push({
+    test: /\.(sa|sc|c)ss$/,
+    use: [
+      MiniCssExtractPlugin.loader,
+      'css-loader',
+      'postcss-loader',
+      'sass-loader'
+    ],
+  });
   return conf;
 };

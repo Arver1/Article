@@ -1,0 +1,18 @@
+.article {
+  &__title {
+    margin: 0 0 10px;
+    color: dodgerblue;
+    cursor: pointer;
+  }
+  &__title:hover {
+    opacity: 0.6;
+  }
+  &__description {
+    color: #6B6B6B;
+    margin: 0 0 10px;
+  }
+  &__items {
+    width: 760px;
+    box-sizing: border-box;
+  }
+}
