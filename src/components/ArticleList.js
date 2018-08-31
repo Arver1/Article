@@ -5,17 +5,19 @@ import accordion from "../decorators/accordion";
 
 function ArticleList({ articles , openId, toggleOpenId}) {
   const getBody = () => {
-    return articles.map((article) => {
+    const list = articles.map((article) => {
       return (
         <li key = { article.id }>
           <Article article = { article } openId = { openId } toggleOpenId = { toggleOpenId }/>
         </li>
       )
-    })
+    });
+    list.unshift(<li key = {0} className = "article__caption">List of articles</li>)
+    return list;
   };
 
   return (
-    <ul>
+    <ul className = "main-page__items">
       { getBody() }
     </ul>
   )

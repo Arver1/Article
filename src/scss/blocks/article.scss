@@ -1,14 +1,20 @@
 .article {
+  &__caption {
+    @include font(26px, 28px, bold, #6B6B6B);
+    @include inline-block();
+    margin: 0 0 30px;
+    box-shadow: 0 4px 0 0 #6B6B6B;
+  }
   &__title {
+    @include font(26px, 28px, bold, dodgerblue);
     margin: 0 0 10px;
-    color: dodgerblue;
     cursor: pointer;
   }
   &__title:hover {
     opacity: 0.6;
   }
   &__description {
-    color: #6B6B6B;
+    @include font(16px, 18px, normal, #6B6B6B);
     margin: 0 0 10px;
   }
   &__items {

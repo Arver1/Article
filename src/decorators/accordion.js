@@ -7,6 +7,13 @@ export default (OriginalComponent) => class Accordion extends Component {
       openId: props.defaultItemId
     }
   }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      openId: nextProps.defaultItemId
+    })
+  }
+
   toggleOpenId = (id) => (ev) => {
     ev.preventDefault();
     if(this.state.openId === id) {

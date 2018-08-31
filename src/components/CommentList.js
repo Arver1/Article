@@ -23,7 +23,6 @@ class CommentList extends PureComponent {
       return (
         <div>
           <p>No comments yet</p>
-          <CommentForm />
         </div>
       )
     }
@@ -32,7 +31,7 @@ class CommentList extends PureComponent {
         <button
           className = "btn"
           onClick = { this.toggleOpen }>
-          {this.state.isOpen ? 'Close commments' : 'Show comments'}
+          {this.state.isOpen ? 'Close comments' : 'Show comments'}
         </button>
         <CSSTransition
           classNames = "article__items"

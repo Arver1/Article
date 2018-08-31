@@ -4,6 +4,7 @@
   flex-wrap: wrap;
   margin: 0 0 10px;
   &__description {
+    @include font(14px, 16px, normal, #979797);
     margin: 0 0 10px;
   }
   &__author {
