@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { CSSTransition } from 'react-transition-group';
 import Comment from './Comment';
 
 class CommentList extends PureComponent {
@@ -27,14 +28,26 @@ class CommentList extends PureComponent {
       )
     }
     return (
-      <ul className = "article__items">
+      <section>
         <button
           className = "btn"
           onClick = { this.toggleOpen }>
           {this.state.isOpen ? 'Close commments' : 'Show comments'}
-          </button>
-        { this.getBody() }
-      </ul>
+        </button>
+        <CSSTransition
+          classNames = "article__items"
+          in = { this.state.isOpen }
+          timeout={{
+            enter: 100,
+            exit: 1000,
+          }}
+          unmountOnExit
+        >
+          <ul className = "article__items">
+            { this.getBody() }
+          </ul>
+        </CSSTransition>
+      </section>
     )
   }
 
@@ -45,7 +58,6 @@ class CommentList extends PureComponent {
   }
 
   getBody = () => {
-    if(!this.state.isOpen) return null;
     const { comments } = this.props;
     return comments.map((comment) => {
       return (

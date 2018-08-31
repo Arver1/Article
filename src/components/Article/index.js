@@ -1,18 +1,28 @@
 import React from 'react';
 import CommentList from '../CommentList';
 import PropTypes from "prop-types";
+import { CSSTransition } from 'react-transition-group';
 
 function Article(props) {
   const {article : {title, text, comments, id}, toggleOpenId, openId} = props;
   const getTitle = openId === id ? 'Close' : 'Open';
-
   const getBody = () => {
-    if(id !== openId) return null;
     return (
-      <section>
-      <p className = "article__description">{ text }</p>
-      <CommentList comments = {comments} />
-      </section>
+      <CSSTransition
+        in = { id === openId}
+        timeout={{
+          enter: 100,
+          exit: 1000,
+        }}
+        classNames = "article__content"
+        appear
+        unmountOnExit
+      >
+        <section className = "article__content">
+          <p className = "article__description">{ text }</p>
+          <CommentList comments = {comments} />
+        </section>
+      </CSSTransition>
     )
   }
 

@@ -15,4 +15,21 @@
     width: 760px;
     box-sizing: border-box;
   }
+  &__content,
+  &__items {
+    opacity: 0;
+  }
+  &__content-enter-done,
+  &__items-enter-done {
+    animation-name: articleContent;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+  }
+  &__content-exit-active,
+  &__items-exit-active {
+    animation-name: articleContent;
+    animation-duration: 1s;
+    animation-direction: reverse;
+  }
+
 }
