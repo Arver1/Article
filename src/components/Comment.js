@@ -13,7 +13,7 @@ function Comment({comment :{user, text}}){
 Comment.propTypes = {
   comment: PropTypes.shape({
     user: PropTypes.string,
-    text: PropTypes.string
+    text: PropTypes.string,
   })
 };
 

@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import Comment from './Comment';
+import CommentForm from './CommentForm';
 
 class CommentList extends PureComponent {
 
@@ -58,11 +59,15 @@ class CommentList extends PureComponent {
 
   getBody = () => {
     const { comments } = this.props;
-    return comments.map((comment) => {
+    return [...comments.map((comment) => {
       return (
         <li key = { comment.id }><Comment comment = { comment } /></li>
       )
-    })
+    }),
+      <li key = { 0 }>
+        <hr />
+        <CommentForm />
+      </li>]
   };
 }
 

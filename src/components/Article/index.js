@@ -20,7 +20,7 @@ function Article(props) {
       >
         <section className = "article__content">
           <p className = "article__description">{ text }</p>
-          <CommentList comments = {comments} />
+          <CommentList comments = {comments}/>
         </section>
       </CSSTransition>
     )

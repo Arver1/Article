@@ -10,4 +10,32 @@
   &__author {
     @include font();
   }
+  &__form {
+    padding-left: 20px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  &__wrapper {
+    flex-basis: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 0 10px;
+  }
+  &__field-author {
+    @include inline-block();
+    margin: 0 0 10px;
+    width: 100px;
+  }
+  &__field-author--color {
+    border-color: tomato;
+    outline: none;
+  }
+  &__label {
+    @include inline-block();
+    @include font(16px, 18px);
+    cursor: pointer;
+    flex-basis: 100px;
+    flex-grow: 0;
+    margin-right: 20px;
+  }
 }

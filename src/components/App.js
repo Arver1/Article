@@ -5,12 +5,15 @@ import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import ArticleList from './ArticleList';
 import PropTypes from "prop-types";
+import PopUp from './PoPUp';
 
 class App extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      selectedOption: null
+      selectedOption: null,
+      from: null,
+      to: null
     }
   }
 
@@ -22,7 +25,7 @@ class App extends PureComponent {
     this.setState({ selectedOption });
   }
 
-  filterArticles = (articles) => {
+  filterBySelect = (articles) => {
     if(!this.state.selectedOption) {
       return articles
     }
@@ -36,9 +39,13 @@ class App extends PureComponent {
     })
   }
 
+  filterByDate = (articles) => {
+
+  }
+
   render() {
     const { articles } = this.props;
-    const favoriteArticles = this.filterArticles(articles);
+    const favoriteArticles = this.filterBySelect(articles);
     if(!articles.length) {
       return (
         <div>Articles not found</div>
@@ -58,6 +65,7 @@ class App extends PureComponent {
         />
         <ArticleList articles = { favoriteArticles }
                      defaultItemId = { favoriteArticles[0].id }/>
+        <PopUp />
       </main>
     )
   }
