@@ -1,17 +1,18 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent} from 'react';
+import {findDOMNode} from 'react-dom'
 import { hot } from 'react-hot-loader';
-import Select from 'react-select';
+import SelectFilter from './Filters/Select';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import ArticleList from './ArticleList';
 import PropTypes from "prop-types";
-import PopUp from './PoPUp';
+import PopUp from './PopUp';
+import { connect } from 'react-redux';
 
 class App extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      selectedOption: null,
       from: null,
       to: null
     }
@@ -20,10 +21,6 @@ class App extends PureComponent {
   static propTypes = {
     articles: PropTypes.array
   };
-
-  handleChange = (selectedOption) => {
-    this.setState({ selectedOption });
-  }
 
   filterBySelect = (articles) => {
     if(!this.state.selectedOption) {
@@ -43,6 +40,10 @@ class App extends PureComponent {
 
   }
 
+  getRefPopUp = (ref) => {
+    console.log(findDOMNode(ref));
+  }
+
   render() {
     const { articles } = this.props;
     const favoriteArticles = this.filterBySelect(articles);
@@ -53,22 +54,22 @@ class App extends PureComponent {
     }
     return (
       <main className = "main-page">
-        <Select className = "main-page__select"
-                value = { this.state.selectedOption }
-                onChange={ this.handleChange }
-                options = { articles.map((article) => ({value: article.title, label: article.title}))}
-                isMulti
-        />
+        <SelectFilter />
         <DayPicker
           className = "Selectable main-page__calendar"
           numberOfMonths = {2}
         />
         <ArticleList articles = { favoriteArticles }
-                     defaultItemId = { favoriteArticles[0].id }/>
-        <PopUp />
+                     defaultItemId = { favoriteArticles[0].id }
+        />
+        <PopUp ref = { this.getRefPopUp }/>
       </main>
     )
   }
 }
 
-export default hot(module)(App);
+export default connect((state) => {
+  return {
+    articles: state.articles
+  }
+})(hot(module)(App));

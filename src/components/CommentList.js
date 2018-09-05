@@ -58,7 +58,7 @@ class CommentList extends PureComponent {
   }
 
   getBody = () => {
-    const { comments } = this.props;
+    const { comments, id } = this.props;
     return [...comments.map((comment) => {
       return (
         <li key = { comment.id }><Comment comment = { comment } /></li>
@@ -66,7 +66,7 @@ class CommentList extends PureComponent {
     }),
       <li key = { 0 }>
         <hr />
-        <CommentForm />
+        <CommentForm  id = { id }/>
       </li>]
   };
 }

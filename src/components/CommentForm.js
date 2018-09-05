@@ -1,7 +1,7 @@
 import React from 'react';
 import AuthorField from './AuthorField';
 
-function CommentForm(){
+function CommentForm({id}){
   return (
     <form className = "comment__form">
       <AuthorField />
@@ -14,24 +14,27 @@ function CommentForm(){
                   </textarea>
       </div>
         <button className = "btn"
-                onClick ={ sendMessage }
+                onClick ={ sendMessage(id) }
         >Отправить</button>
     </form>
   )
 }
 
-function sendMessage(e) {
-  e.preventDefault();
-  const xhr = new XMLHttpRequest();
-  const formData = new FormData(document.querySelector('.comment__form'));
-  xhr.open('POST', 'http://localhost:3001');
-  xhr.onload = () => {
-    if(xhr.status !== 200) {
-      console.log(xhr.statusText);
-    } else {
-      console.log(xhr.response);
-    }
-  };
-  xhr.send(formData);
+function sendMessage(id) {
+  return (e) => {
+    e.preventDefault();
+    const xhr = new XMLHttpRequest();
+    const formData = new FormData(document.querySelector('.comment__form'));
+    formData.append("id", id.toString());
+    xhr.open('POST', 'http://localhost:3001');
+    xhr.onload = () => {
+      if(xhr.status !== 200) {
+        console.log(xhr.statusText);
+      } else {
+        console.log(xhr.response);
+      }
+    };
+    xhr.send(formData);
+  }
 }
 export default CommentForm;

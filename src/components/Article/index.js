@@ -20,7 +20,7 @@ function Article(props) {
       >
         <section className = "article__content">
           <p className = "article__description">{ text }</p>
-          <CommentList comments = {comments}/>
+          <CommentList comments = { comments } id = { id }/>
         </section>
       </CSSTransition>
     )
@@ -29,9 +29,16 @@ function Article(props) {
   return (
     <article className = "article">
       <h2 className = "article__title" title={ getTitle } onClick = { toggleOpenId(id) }>{ title }</h2>
+      <button onClick = { deleteArticle.bind(null, props) } className = "btn btn--color">Delete Article</button>
       { getBody() }
     </article>
   )
+}
+
+function deleteArticle(props) {
+  const { deleteArticle, article: { title, id }, deleteOption} = props;
+  deleteArticle(id);
+  deleteOption(title);
 }
 
 Article.propTypes = {
