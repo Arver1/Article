@@ -11,17 +11,13 @@ export default (filtersState = defaultFiltersState, action) => {
 
   switch(type) {
     case ADD_SELECT:
-      return {
-        selectedOption: [...action.payload.titles],
-        from: null,
-        to: null
-      };
+      return Object.assign({}, filtersState, {selectedOption: [...action.payload.titles]});
     case UPDATE_RANGE:
-      return {
-        selectedOption: [],
-        from: action.payload.range.from,
-        to: action.payload.range.to
-      };
+      return Object.assign({}, filtersState,
+        {
+          from: action.payload.range.from,
+          to: action.payload.range.to
+        });
   }
 
   return filtersState;

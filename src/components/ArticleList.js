@@ -35,13 +35,43 @@ ArticleList.propTypes = {
 };
 
 export default connect(({ articles, filters }) => {
-  if(!filters.selectedOption.length) {
-    return {
-      articles
+  const {from, to, selectedOption } = filters;
+  if(!selectedOption.length) {
+    if(!from) {
+      return {
+        articles
+      }
+    }
+    if(!to) {
+      return {
+        articles: articles.filter(({date}) => {
+          const currentTime =  new Date(date).getTime();
+          if (currentTime >= from) return true;
+        })
+      }
+    } else {
+      return {
+        articles: articles.filter(({date}) => {
+          const currentTime =  new Date(date).getTime();
+          if (currentTime >= from && currentTime <= to) return true;
+        })
+      }
     }
   }
-
   return {
-    articles: articles.filter(({title}) => !!~filters.selectedOption.indexOf(title))
+    articles: articles.filter(({title, date}) => {
+      if(!!~selectedOption.indexOf(title)){
+        const currentTime =  new Date(date).getTime();
+        if(!from) return true;
+        else {
+          if(!to) {
+            if (currentTime >= from) return true;
+          }
+          else {
+            if (currentTime >= from && currentTime <= to) return true;
+          }
+        }
+      }
+    })
   }
 }, { deleteArticle })(accordion(ArticleList));

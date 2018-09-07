@@ -24,7 +24,7 @@ function Article(props) {
         </section>
       </CSSTransition>
     )
-  }
+  };
 
   return (
     <article className = "article">
