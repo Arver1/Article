@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import articles from './articles';
-import options from './options';
+import filters from './filters';
 
 export default combineReducers({
   articles,
-  options
+  filters
 });

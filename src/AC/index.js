@@ -1,4 +1,4 @@
-import { DELETE_ARTICLE, SORT_BY_SELECT_ARTICLE, DELETE_OPTION } from '../constants'
+import { DELETE_ARTICLE, ADD_SELECT, UPDATE_RANGE } from '../constants'
 
 export function deleteArticle(id) {
   return {
@@ -9,20 +9,20 @@ export function deleteArticle(id) {
   }
 }
 
-export function sortBySelectArticle(selectedOption) {
+export function addSelect(titles) {
   return {
-    type: SORT_BY_SELECT_ARTICLE,
+    type: ADD_SELECT,
     payload: {
-      selectedOption
+      titles
     }
   }
 }
 
-export function deleteOption(title) {
+export function updateRange(range) {
   return {
-    type: DELETE_OPTION,
+    type: UPDATE_RANGE,
     payload: {
-      title
+      range
     }
   }
 }

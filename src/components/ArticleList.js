@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import Article from './Article';
 import accordion from "../decorators/accordion";
 import { connect } from 'react-redux';
-import { deleteArticle, deleteOption } from "../AC";
+import { deleteArticle } from "../AC";
 
-function ArticleList({ articles , openId, toggleOpenId, deleteArticle, deleteOption}) {
+function ArticleList({ articles , openId, toggleOpenId, deleteArticle }) {
   const getBody = () => {
     const list = articles.map((article) => {
       return (
@@ -13,7 +13,6 @@ function ArticleList({ articles , openId, toggleOpenId, deleteArticle, deleteOpt
           <Article article = { article } openId = { openId }
                    toggleOpenId = { toggleOpenId }
                    deleteArticle = { deleteArticle }
-                   deleteOption = { deleteOption }
           />
         </li>
       )
@@ -33,10 +32,16 @@ ArticleList.propTypes = {
   articles: PropTypes.array,
   openId: PropTypes.string,
   toggleOpenId: PropTypes.func
-}
+};
 
-export default connect((state) => {
-  return {
-    articles: state.articles
+export default connect(({ articles, filters }) => {
+  if(!filters.selectedOption.length) {
+    return {
+      articles
+    }
   }
-}, { deleteArticle, deleteOption })(accordion(ArticleList));
+
+  return {
+    articles: articles.filter(({title}) => !!~filters.selectedOption.indexOf(title))
+  }
+}, { deleteArticle })(accordion(ArticleList));

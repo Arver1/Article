@@ -1,35 +1,21 @@
 import React, { PureComponent } from 'react';
 import Select from 'react-select';
 import { connect } from 'react-redux';
-import { sortBySelectArticle } from "../../AC";
+import { addSelect } from "../../AC";
 
 class SelectFilter extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedOption: null
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { options } = nextProps;
-    if(!this.state.selectedOption) return;
-    this.setState({
-      selectedOption: this.state.selectedOption.filter((option) => !!~options.indexOf(option))
-    })
-  }
 
   handleChange = (selectedOption) => {
-    const { sortBySelectArticle } = this.props;
-    sortBySelectArticle(selectedOption);
-    this.setState({ selectedOption });
+    const { addSelect } = this.props;
+    addSelect(selectedOption.map((option) => option.value));
   };
 
   render(){
-    const { options } = this.props;
+    const { value, options } = this.props;
+
     return (
       <Select className = "main-page__select"
-              value = { this.state.selectedOption }
+              value = { value }
               onChange = { this.handleChange }
               options = { options }
               isMulti
@@ -38,8 +24,19 @@ class SelectFilter extends PureComponent {
   }
 }
 
-export default connect((state) => {
+export default connect(({articles, filters}) => {
+  const options = articles.map((article) => ({
+    value: article.title,
+    label: article.title
+  }));
+
+  if(!filters.selectedOption) return {
+    value: null,
+    options
+  };
+
   return {
-    options: state.options
+    value: options.filter(({value}) => !!~filters.selectedOption.indexOf(value)),
+    options
   }
-}, { sortBySelectArticle })(SelectFilter)
+}, { addSelect })(SelectFilter)

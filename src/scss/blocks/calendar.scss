@@ -1,0 +1,16 @@
+.calendar {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: center;
+  max-width: 260px;
+  margin-right: 20px;
+  &__description {
+    @include font();
+    min-height: 80px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: space-between;
+  }
+}

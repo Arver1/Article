@@ -1,3 +1,4 @@
 export const DELETE_ARTICLE = 'DELETE_ARTICLE';
-export const SORT_BY_SELECT_ARTICLE = 'SORT_BY_SELECT_ARTICLE';
-export const DELETE_OPTION = 'DELETE_OPTION';
+export const UPDATE_RANGE = 'UPDATE_RANGE';
+export const ADD_SELECT = 'ADD_SELECT';
+
