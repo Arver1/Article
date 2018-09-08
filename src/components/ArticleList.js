@@ -4,6 +4,7 @@ import Article from './Article';
 import accordion from "../decorators/accordion";
 import { connect } from 'react-redux';
 import { deleteArticle } from "../AC";
+import { ArticleFilterSelector } from "../selectors";
 
 function ArticleList({ articles , openId, toggleOpenId, deleteArticle }) {
   const getBody = () => {
@@ -34,44 +35,6 @@ ArticleList.propTypes = {
   toggleOpenId: PropTypes.func
 };
 
-export default connect(({ articles, filters }) => {
-  const {from, to, selectedOption } = filters;
-  if(!selectedOption.length) {
-    if(!from) {
-      return {
-        articles
-      }
-    }
-    if(!to) {
-      return {
-        articles: articles.filter(({date}) => {
-          const currentTime =  new Date(date).getTime();
-          if (currentTime >= from) return true;
-        })
-      }
-    } else {
-      return {
-        articles: articles.filter(({date}) => {
-          const currentTime =  new Date(date).getTime();
-          if (currentTime >= from && currentTime <= to) return true;
-        })
-      }
-    }
-  }
-  return {
-    articles: articles.filter(({title, date}) => {
-      if(!!~selectedOption.indexOf(title)){
-        const currentTime =  new Date(date).getTime();
-        if(!from) return true;
-        else {
-          if(!to) {
-            if (currentTime >= from) return true;
-          }
-          else {
-            if (currentTime >= from && currentTime <= to) return true;
-          }
-        }
-      }
-    })
-  }
+export default connect((state) => {
+  return ArticleFilterSelector(state)
 }, { deleteArticle })(accordion(ArticleList));

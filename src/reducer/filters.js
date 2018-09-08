@@ -1,4 +1,4 @@
-import { ADD_SELECT, UPDATE_RANGE } from "../constants";
+import {ADD_SELECT, DELETE_ARTICLE, UPDATE_RANGE} from "../constants";
 
 const defaultFiltersState =  {
   selectedOption: [],
@@ -12,6 +12,11 @@ export default (filtersState = defaultFiltersState, action) => {
   switch(type) {
     case ADD_SELECT:
       return Object.assign({}, filtersState, {selectedOption: [...action.payload.titles]});
+    case DELETE_ARTICLE:
+      filtersState.selectedOption = filtersState.selectedOption.filter((option) => {
+        return option !== action.payload.title
+      });
+      return filtersState;
     case UPDATE_RANGE:
       return Object.assign({}, filtersState,
         {

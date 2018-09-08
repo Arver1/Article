@@ -7,6 +7,7 @@ import ArticleList from './ArticleList';
 import PropTypes from "prop-types";
 import PopUp from './PopUp';
 import { connect } from 'react-redux';
+import {ArticleFilterSelector} from "../selectors";
 
 function App({articles}) {
   if(!articles.length) {
@@ -28,14 +29,6 @@ App.propTypes = {
   articles: PropTypes.array
 };
 
-export default connect(({ articles, filters }) => {
-  if(!filters.selectedOption.length) {
-    return {
-      articles
-    }
-  }
-
-  return {
-    articles: articles.filter(({title}) => !!~filters.selectedOption.indexOf(title))
-  }
+export default connect((state) => {
+  return ArticleFilterSelector(state)
 })(hot(module)(App));

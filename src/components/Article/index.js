@@ -36,8 +36,8 @@ function Article(props) {
 }
 
 function deleteArticle(props) {
-  const { deleteArticle, article: { id }} = props;
-  deleteArticle(id);
+  const { deleteArticle, article: { id, title }} = props;
+  deleteArticle(id, title);
 }
 
 Article.propTypes = {

@@ -1,10 +1,11 @@
 import { DELETE_ARTICLE, ADD_SELECT, UPDATE_RANGE } from '../constants'
 
-export function deleteArticle(id) {
+export function deleteArticle(id, title) {
   return {
     type: DELETE_ARTICLE,
     payload: {
-      id
+      id,
+      title
     }
   }
 }
