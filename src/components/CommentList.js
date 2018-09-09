@@ -59,9 +59,9 @@ class CommentList extends PureComponent {
 
   getBody = () => {
     const { comments, id } = this.props;
-    return [...comments.map((comment) => {
+    return [...comments.map((id) => {
       return (
-        <li key = { comment.id }><Comment comment = { comment } /></li>
+        <li key = { id }><Comment id = { id } /></li>
       )
     }),
       <li key = { 0 }>

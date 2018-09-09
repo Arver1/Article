@@ -4,7 +4,7 @@ import Article from './Article';
 import accordion from "../decorators/accordion";
 import { connect } from 'react-redux';
 import { deleteArticle } from "../AC";
-import { ArticleFilterSelector } from "../selectors";
+import { articleFilterSelector } from "../selectors";
 
 function ArticleList({ articles , openId, toggleOpenId, deleteArticle }) {
   const getBody = () => {
@@ -36,5 +36,5 @@ ArticleList.propTypes = {
 };
 
 export default connect((state) => {
-  return ArticleFilterSelector(state)
+  return articleFilterSelector(state)
 }, { deleteArticle })(accordion(ArticleList));

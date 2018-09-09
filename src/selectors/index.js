@@ -1,9 +1,11 @@
-import { createSelector } from 'reselect';
+import {  createSelector } from 'reselect';
 
 const filtersGetter = state => state.filters;
 const articlesGetter = state => state.articles;
+const commentsGetter = state => state.comments;
+const idGetter = (state, props) => props.id;
 
-export const ArticleFilterSelector = createSelector(articlesGetter, filtersGetter, (articles, filters) => {
+export const articleFilterSelector = createSelector(articlesGetter, filtersGetter, (articles, filters) => {
   const {from, to, selectedOption } = filters;
   if(!selectedOption.length) {
     if(!from) {
@@ -42,5 +44,11 @@ export const ArticleFilterSelector = createSelector(articlesGetter, filtersGette
         }
       }
     })
+  }
+});
+
+export const CommentFilterSelector = () => createSelector(commentsGetter, idGetter, (comments, id) => {
+  return {
+    comment: comments.find((comment) => comment.id === id)
   }
 });
