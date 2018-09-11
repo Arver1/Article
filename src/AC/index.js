@@ -1,4 +1,4 @@
-import { DELETE_ARTICLE, ADD_SELECT, UPDATE_RANGE } from '../constants'
+import { DELETE_ARTICLE, ADD_SELECT, UPDATE_RANGE, ADD_COMMENT } from '../constants'
 
 export function deleteArticle(id, title) {
   return {
@@ -27,3 +27,15 @@ export function updateRange(range) {
     }
   }
 }
+
+export function addComment(user, text, id) {
+  return {
+    type: ADD_COMMENT,
+    payload: {
+      articleId: id,
+      user,
+      text
+    }
+  }
+}
+

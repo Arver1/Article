@@ -1,26 +1,51 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import AuthorField from './AuthorField';
+import { connect } from 'react-redux';
+import { addComment } from '../AC';
 
-function CommentForm({id}){
-  return (
-    <form className = "comment__form">
-      <AuthorField />
-      <div className = "comment__wrapper">
-        <label htmlFor="field-text" className = "comment__label">Message</label>
-        <textarea cols = {40} rows = {10}
-                  id = "field-text"
-                  name = "message"
-                  placeholder = "Добавить сообщение">{ null }
+class CommentForm extends PureComponent {
+  constructor(props){
+    super(props);
+  }
+
+  render() {
+    const { id, addComment } = this.props;
+    return (
+      <form className = "comment__form">
+        <AuthorField ref = { this.getRefAuthor } />
+        <div className = "comment__wrapper">
+          <label htmlFor="field-text" className = "comment__label">Message</label>
+          <textarea cols = {40} rows = {10}
+                    id = "field-text"
+                    name = "message"
+                    placeholder = "Добавить сообщение"
+                    ref = { this.getRefText }>{ null }
                   </textarea>
-      </div>
+        </div>
         <button className = "btn"
-                onClick ={ sendMessage(id) }
+                onClick ={ this.sendMessage(id, addComment) }
         >Отправить</button>
-    </form>
-  )
+      </form>
+    )
+  }
+
+  getRefText = (ref) => {
+    this.textRef = ref;
+  }
+
+  getRefAuthor = (ref) => {
+    this.AuthorRef = ref;
+  }
+
+  sendMessage = (id, addComment) => {
+    return (e) => {
+      e.preventDefault();
+      addComment(this.AuthorRef.state.value ,this.textRef.value, id);
+    }
+  }
 }
 
-function sendMessage(id) {
+  /*
   return (e) => {
     e.preventDefault();
     const xhr = new XMLHttpRequest();
@@ -36,5 +61,5 @@ function sendMessage(id) {
     };
     xhr.send(formData);
   }
-}
-export default CommentForm;
+  */
+export default connect(null, { addComment })(CommentForm);

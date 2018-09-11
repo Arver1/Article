@@ -25,7 +25,7 @@ class SelectFilter extends PureComponent {
 }
 
 export default connect(({articles, filters}) => {
-  const options = articles.map((article) => ({
+  const options = Object.values(articles).map((article) => ({
     value: article.title,
     label: article.title
   }));

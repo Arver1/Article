@@ -4,25 +4,25 @@ const filtersGetter = state => state.filters;
 const articlesGetter = state => state.articles;
 const commentsGetter = state => state.comments;
 const idGetter = (state, props) => props.id;
-
 export const articleFilterSelector = createSelector(articlesGetter, filtersGetter, (articles, filters) => {
+  const articlesArray = Object.values(articles);
   const {from, to, selectedOption } = filters;
   if(!selectedOption.length) {
     if(!from) {
       return {
-        articles
+        articles: articlesArray
       }
     }
     if(!to) {
       return {
-        articles: articles.filter(({date}) => {
+        articles: articlesArray.filter(({date}) => {
           const currentTime =  new Date(date).getTime();
           if (currentTime >= from) return true;
         })
       }
     } else {
       return {
-        articles: articles.filter(({date}) => {
+        articles: articlesArray.filter(({date}) => {
           const currentTime =  new Date(date).getTime();
           if (currentTime >= from && currentTime <= to) return true;
         })
@@ -30,7 +30,7 @@ export const articleFilterSelector = createSelector(articlesGetter, filtersGette
     }
   }
   return {
-    articles: articles.filter(({title, date}) => {
+    articles: articlesArray.filter(({title, date}) => {
       if(!!~selectedOption.indexOf(title)){
         const currentTime =  new Date(date).getTime();
         if(!from) return true;
@@ -49,6 +49,6 @@ export const articleFilterSelector = createSelector(articlesGetter, filtersGette
 
 export const CommentFilterSelector = () => createSelector(commentsGetter, idGetter, (comments, id) => {
   return {
-    comment: comments.find((comment) => comment.id === id)
+    comment: comments[id]
   }
 });
