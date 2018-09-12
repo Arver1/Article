@@ -1,13 +1,34 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Article from './Article';
 import accordion from "../decorators/accordion";
 import { connect } from 'react-redux';
 import { deleteArticle } from "../AC";
 import { articleFilterSelector } from "../selectors";
+import { loadAllArticles } from "../AC";
 
-function ArticleList({ articles , openId, toggleOpenId, deleteArticle }) {
-  const getBody = () => {
+class ArticleList extends PureComponent {
+
+  static propTypes = {
+    articles: PropTypes.array,
+    openId: PropTypes.string,
+    toggleOpenId: PropTypes.func
+  };
+
+  componentDidMount() {
+    this.props.loadAllArticles();
+  }
+
+  render() {
+    return (
+      <ul className = "main-page__items">
+        { this.getBody() }
+      </ul>
+    )
+  }
+
+  getBody = () => {
+    const { articles , openId, toggleOpenId, deleteArticle } = this.props;
     const list = articles.map((article) => {
       return (
         <li key = { article.id }>
@@ -21,20 +42,8 @@ function ArticleList({ articles , openId, toggleOpenId, deleteArticle }) {
     list.unshift(<li key = {0} className = "article__caption">List of articles</li>)
     return list;
   };
-
-  return (
-    <ul className = "main-page__items">
-      { getBody() }
-    </ul>
-  )
 }
-
-ArticleList.propTypes = {
-  articles: PropTypes.array,
-  openId: PropTypes.string,
-  toggleOpenId: PropTypes.func
-};
 
 export default connect((state) => {
   return articleFilterSelector(state)
-}, { deleteArticle })(accordion(ArticleList));
+}, { loadAllArticles, deleteArticle })(accordion(ArticleList));

@@ -1,4 +1,4 @@
-import { DELETE_ARTICLE, ADD_SELECT, UPDATE_RANGE, ADD_COMMENT } from '../constants'
+import { DELETE_ARTICLE, ADD_SELECT, UPDATE_RANGE, ADD_COMMENT, LOAD_ALL_ARTICLES } from '../constants'
 
 export function deleteArticle(id, title) {
   return {
@@ -36,6 +36,13 @@ export function addComment(user, text, id) {
       user,
       text
     }
+  }
+}
+
+export function loadAllArticles() {
+  return {
+    type: LOAD_ALL_ARTICLES,
+    callAPI: 'http://localhost:3001/api/article'
   }
 }
 

@@ -1,5 +1,5 @@
 import { normalizedArticles } from '../fixtures'
-import { DELETE_ARTICLE, UPDATE_COMMENTS_ARTICLE } from "../constants";
+import { DELETE_ARTICLE, ADD_COMMENT } from "../constants";
 
 const defaultArticles = normalizedArticles.reduce((acc, article) => {
   acc[article.id] = article;
@@ -15,11 +15,11 @@ export default (articlesState = defaultArticles, action) => {
       delete duplicateState[action.payload.id];
       return duplicateState
     }
-    case UPDATE_COMMENTS_ARTICLE : {
+    case ADD_COMMENT : {
       const duplicateState = {...articlesState};
-      duplicateState[action.payload.id].comments = [
-        ...duplicateState[action.payload.id].comments,
-        action.payload.commentId
+      duplicateState[action.payload.articleId].comments = [
+        ...duplicateState[action.payload.articleId].comments,
+        action.commentId
       ];
       return duplicateState
     }
