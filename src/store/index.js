@@ -4,7 +4,7 @@ import logger from '../middlewares/logger';
 import generateId from '../middlewares/generateId'
 import api from '../middlewares/api';
 
-const enhanser = applyMiddleware(logger, generateId, api);
+const enhanser = applyMiddleware(logger, api, generateId);
 
 const store = createStore(reducer, {}, enhanser);
 

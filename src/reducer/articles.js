@@ -1,14 +1,8 @@
 import { normalizedArticles } from '../fixtures'
-import { DELETE_ARTICLE, ADD_COMMENT } from "../constants";
+import { DELETE_ARTICLE, ADD_COMMENT, LOAD_ALL_ARTICLES } from "../constants";
 
-const defaultArticles = normalizedArticles.reduce((acc, article) => {
-  acc[article.id] = article;
-  return acc;
-}, {});
-
-export default (articlesState = defaultArticles, action) => {
-  const { type } = action;
-
+export default (articlesState = {}, action) => {
+  const { type, response } = action;
   switch(type) {
     case DELETE_ARTICLE : {
       const duplicateState = {...articlesState};
@@ -22,6 +16,14 @@ export default (articlesState = defaultArticles, action) => {
         action.commentId
       ];
       return duplicateState
+    }
+    case LOAD_ALL_ARTICLES: {
+      console.log(action);
+      debugger;
+      return response.reduce((acc, article) => {
+        acc[article.id] = article;
+        return acc;
+      }, {});
     }
   }
 

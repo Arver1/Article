@@ -5,7 +5,6 @@ import accordion from "../decorators/accordion";
 import { connect } from 'react-redux';
 import { deleteArticle } from "../AC";
 import { articleFilterSelector } from "../selectors";
-import { loadAllArticles } from "../AC";
 
 class ArticleList extends PureComponent {
 
@@ -14,10 +13,6 @@ class ArticleList extends PureComponent {
     openId: PropTypes.string,
     toggleOpenId: PropTypes.func
   };
-
-  componentDidMount() {
-    this.props.loadAllArticles();
-  }
 
   render() {
     return (
@@ -46,4 +41,4 @@ class ArticleList extends PureComponent {
 
 export default connect((state) => {
   return articleFilterSelector(state)
-}, { loadAllArticles, deleteArticle })(accordion(ArticleList));
+}, { deleteArticle })(accordion(ArticleList));
