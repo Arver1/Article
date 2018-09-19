@@ -1,30 +1,42 @@
 import { normalizedArticles } from '../fixtures'
-import { DELETE_ARTICLE, ADD_COMMENT, LOAD_ALL_ARTICLES } from "../constants";
+import { DELETE_ARTICLE, ADD_COMMENT, LOAD_ALL_ARTICLES, START, SUCCESS } from "../constants";
+import { OrderedMap, Map, Record } from 'immutable'
+import { arrToMap } from "../util";
 
-export default (articlesState = {}, action) => {
-  const { type, response } = action;
+const ArticleRecord = Record({
+  text: null,
+  title: null,
+  id: null,
+  comments: []
+});
+
+const ReducerState = Record({
+  loading: false,
+  loaded: false,
+  entities: new OrderedMap({})
+});
+
+const defaultState = new ReducerState();
+
+export default (articlesState = defaultState, action) => {
+  const { type, response }  = action;
   switch(type) {
-    case DELETE_ARTICLE : {
-      const duplicateState = {...articlesState};
-      delete duplicateState[action.payload.id];
-      return duplicateState
-    }
-    case ADD_COMMENT : {
-      const duplicateState = {...articlesState};
-      duplicateState[action.payload.articleId].comments = [
-        ...duplicateState[action.payload.articleId].comments,
-        action.commentId
-      ];
-      return duplicateState
-    }
-    case LOAD_ALL_ARTICLES: {
-      console.log(action);
-      debugger;
-      return response.reduce((acc, article) => {
-        acc[article.id] = article;
-        return acc;
-      }, {});
-    }
+    case DELETE_ARTICLE :
+      return articlesState.deleteIn(['entities'], action.payload.id);
+
+    case ADD_COMMENT :
+      return articlesState.updateIn(
+        ['entities', action.payload.articleId, 'comments'],
+          comments => comments.concat(action.commentId));
+
+    case LOAD_ALL_ARTICLES + START:
+      return articlesState.set('loading', true);
+
+    case LOAD_ALL_ARTICLES + SUCCESS:
+      return articlesState
+        .set('entities', arrToMap(response, ArticleRecord))
+        .set('loading', false)
+        .set('loaded', true)
   }
 
   return articlesState

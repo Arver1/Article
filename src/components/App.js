@@ -8,7 +8,8 @@ import PropTypes from "prop-types";
 import PopUp from './PopUp';
 import { connect } from 'react-redux';
 import { articleFilterSelector } from "../selectors";
-import {loadAllArticles} from "../AC";
+import { loadAllArticles } from "../AC";
+import Loader from './Loader';
 
 class App extends PureComponent {
   static propTypes = {
@@ -16,11 +17,13 @@ class App extends PureComponent {
   }
 
   componentDidMount() {
-    this.props.loadAllArticles();
+    const { loaded, loading, loadAllArticles } = this.props;
+    if (!loaded || !loading) loadAllArticles();
   }
 
   render(){
-    const { articles } = this.props;
+    const { articles, loading } = this.props;
+    if (loading) return <Loader/>;
     if(!articles.length) {
       return (
         <main className = "main-page">
@@ -42,5 +45,9 @@ class App extends PureComponent {
 }
 
 export default connect((state) => {
-  return articleFilterSelector(state)
+  return {
+    ...articleFilterSelector(state),
+    loading: state.articles.loading,
+    loaded: state.articles.loaded
+  }
 }, { loadAllArticles })(hot(module)(App));

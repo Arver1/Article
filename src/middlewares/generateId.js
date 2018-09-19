@@ -10,6 +10,7 @@ export default store => next => action => {
         ...action,
         commentId: id
       });
+      return
   }
   next(action);
 }

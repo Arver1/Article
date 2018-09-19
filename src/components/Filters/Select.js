@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import Select from 'react-select';
 import { connect } from 'react-redux';
 import { addSelect } from "../../AC";
+import { mapToArr } from "../../util";
 
 class SelectFilter extends PureComponent {
 
@@ -25,7 +26,7 @@ class SelectFilter extends PureComponent {
 }
 
 export default connect(({articles, filters}) => {
-  const options = Object.values(articles).map((article) => ({
+  const options = mapToArr(articles).map((article) => ({
     value: article.title,
     label: article.title
   }));

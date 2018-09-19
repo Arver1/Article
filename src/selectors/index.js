@@ -1,11 +1,12 @@
 import {  createSelector } from 'reselect';
+import { mapToArr } from "../util";
 
 const filtersGetter = state => state.filters;
-const articlesGetter = state => state.articles;
+const articlesGetter = state => state.articles.entities;
 const commentsGetter = state => state.comments;
 const idGetter = (state, props) => props.id;
 export const articleFilterSelector = createSelector(articlesGetter, filtersGetter, (articles, filters) => {
-  const articlesArray = Object.values(articles);
+  const articlesArray = mapToArr(articles);
   const {from, to, selectedOption } = filters;
   if(!selectedOption.length) {
     if(!from) {
